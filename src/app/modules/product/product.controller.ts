@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../utils/catchAsync";
 import { productService } from "./product.service";
+import { TProductQuery } from "./product.interface";
 
 const createProduct = catchAsync(async (req, res) => {
   const result = await productService.createProductService(req.body);
@@ -13,7 +14,8 @@ const createProduct = catchAsync(async (req, res) => {
 });
 
 const getAllProduct = catchAsync(async (req, res) => {
-  const result = await productService.getAllProductService();
+  const query = req.query;
+  const result = await productService.getAllProductService(query);
 
   res.status(StatusCodes.OK).json({
     success: true,
