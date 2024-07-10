@@ -26,4 +26,6 @@ router.patch(
   productController.updateProduct
 );
 
+router.put("/payment", productController.updatePayment);
+
 export const productRouter = router;

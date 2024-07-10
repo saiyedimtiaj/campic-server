@@ -1,5 +1,5 @@
 import { SortOrder } from "mongoose";
-import { TProduct, TProductQuery } from "./product.interface";
+import { TPayment, TProduct, TProductQuery } from "./product.interface";
 import { Product } from "./product.model";
 
 const createProductService = async (payload: TProduct) => {
@@ -27,10 +27,10 @@ const getAllProductService = async (queryParams: TProductQuery) => {
     sortQuery.price = queryParams.sortBy.toLowerCase() === "asc" ? 1 : -1;
   }
 
-  if (queryParams.searchTerm) {
+  if (queryParams.searchTrams) {
     query.$or = [
-      { name: { $regex: queryParams.searchTerm, $options: "i" } },
-      { description: { $regex: queryParams.searchTerm, $options: "i" } },
+      { name: { $regex: queryParams.searchTrams, $options: "i" } },
+      { description: { $regex: queryParams.searchTrams, $options: "i" } },
     ];
   }
 
@@ -56,10 +56,26 @@ const updateProductService = async (id: string, payload: Partial<TProduct>) => {
   return result;
 };
 
+const updatePaymentService = async (payload: TPayment) => {
+  const result = payload.map(async (item) => {
+    const { _id, quantity } = item;
+    const isItemExist = await Product.findById(_id);
+    return await Product.findByIdAndUpdate(
+      _id,
+      {
+        quantity: isItemExist?.quantity! - quantity,
+      },
+      { new: true }
+    );
+  });
+  return result;
+};
+
 export const productService = {
   createProductService,
   getAllProductService,
   getSingleProductService,
   deleteProductService,
   updateProductService,
+  updatePaymentService,
 };

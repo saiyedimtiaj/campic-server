@@ -57,10 +57,21 @@ const updateProduct = catchAsync(async (req, res) => {
   });
 });
 
+const updatePayment = catchAsync(async (req, res) => {
+  const body = req.body;
+  const result = await productService.updatePaymentService(body);
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "Product update successfully",
+    data: result,
+  });
+});
+
 export const productController = {
   createProduct,
   getAllProduct,
   getSingleProduct,
   deleteProduct,
   updateProduct,
+  updatePayment,
 };

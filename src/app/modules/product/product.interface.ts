@@ -11,7 +11,12 @@ export type TProduct = {
 
 export type TProductQuery = {
   price?: string;
-  searchTerm?: string;
+  searchTrams?: string;
   sortBy?: string;
   category?: string;
 };
+
+export type TPayment = {
+  _id: string;
+  quantity: number;
+}[];
