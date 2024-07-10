@@ -3,13 +3,13 @@
 ### clone this project
 
 ```shall
-    https://github.com/saiyedimtiaj/simple-mongoose.git
+    git clone https://github.com/saiyedimtiaj/campic-server.git
 ```
 
 ### change directory
 
 ```shall
-    cd simple-mongoose
+    cd campic-server
 ```
 
 ### install node modules
